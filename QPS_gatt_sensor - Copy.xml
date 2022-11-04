@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <service uuid="1800">
+      <description>Generic Access Profile</description>
+
+      <characteristic uuid="2a00">
+        <properties read="true" const="true" />
+        <value>SG Sensor</value>
+      </characteristic>
+
+      <characteristic uuid="2a01">
+        <properties read="true" const="true" />
+        <value type="hex">4142</value>
+      </characteristic>
+    </service>
+
+<service uuid="477b695e-fb98-4cfc-9c89-539326BBEEFF" advertise="true">
+        <description>Cable replacement service</description>
+        *
+        <characteristic uuid="8de9b8c2-0fff-4009-b2f7-da9748730c57" id="xgatt_data">
+
+            <description>Data</description>
+            <properties read="true" notify="true" indicate="true" write="true"/>
+            <value length="20"/>
+        </characteristic>
+    </service>
+    
+</configuration>

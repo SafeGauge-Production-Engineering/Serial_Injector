@@ -7,6 +7,16 @@
 - Remove previous (or overwrite current in that path)
 - Iterate through the list of serial numbers
 
+## Steps
+```
+1. Get serial numbers in as a list (from test.csv for starters)
+2. Iterate through the list
+3. [Make a new file and insert all info , concatenating new serial number in there] / [Edit current file]
+4. Overwrite the previous file so the new one is saved there
+5. Call the BT programmer to start? Rewrite tehe programmer?
+
+```
+
 ## Questions
 - How should we get it to start programming?
 - How can we bypass / redo the BT programmer software to do it as soon as there's a connection?
