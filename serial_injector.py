@@ -10,8 +10,8 @@ Created on Thu Nov  3 15:59:45 2022
 5. Call the BT programmer to start? Rewrite the programmer?
 """
 
-''' List requirements:
-    - less than 100 items
+''' List Requirements:
+    - less than 100 serial numbers
     - file only contains serial numbers (no title)
         + check if there are non hex values
         + check if first row is the right format
@@ -22,10 +22,8 @@ Created on Thu Nov  3 15:59:45 2022
 
 import os # for file reading and writing
 import csv
-from functions import *
+from serialFunctions import *
 #import easygui
-
-Serial = "111111" #must be 6 hex digits
 
 index = 0
 SerialList = [0] * 100 ## change this to the number inserted
@@ -41,7 +39,7 @@ with open("AutoInjectSerials.csv", "r") as serialFile:
 for i in SerialList:
     print(i)
     if i == 0:
-        print("skip")
+        skip = True
     else:
        write_serial_to_file(i)
     
