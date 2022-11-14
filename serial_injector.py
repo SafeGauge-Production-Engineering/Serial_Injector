@@ -20,20 +20,31 @@ Created on Thu Nov  3 15:59:45 2022
         + error check for more than 6 characters
     
 '''
+# FIX THE EASYGUI_QT ERROR (NO MODULE FOUND ERROR):
+    # Inside the pip list - installed
+    # Cant find the imported module. Possibly:
+        # wrong path?
 
 import sys
 import os # for file reading and writing
 import csv
-from serialFunctions import *
-from easygui import *  #https://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-so-it-finds-my-modules-packages
+from serialFunctions import * #works out of the box since it's in the same directory (finding the file is easy)
+
+#Update the below method, it's not great
+sys.path.append('C:\\Users\\61477\\AppData\\Local\\Programs\\Python\\Python311\\Lib\site-packages\\easygui_qt') #add module to path
+
+from easygui_qt import *
+
+import easygui_qt
+#from easygui import *  #https://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-so-it-finds-my-modules-packages
 
 # https://docs.spyder-ide.org/5/faq.html#using-packages-installer
 # https://stackoverflow.com/questions/10729116/adding-a-module-specifically-pymorph-to-spyder-python-ide
 
-easygui.egdemo()
+launcher.main()
 
 index = 0
-SerialList = [0] * 100 ## change this to the number inserted
+SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
 
 with open("AutoInjectSerials.csv", "r") as serialFile:
     reader = csv.reader(serialFile)
