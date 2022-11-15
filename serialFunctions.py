@@ -50,16 +50,14 @@ def hex_error_check(serialNo):
     if len(serialNo) != 6:
        error1 = " is not a 6 digit serial. Check and restart with correct serials."
        response = ccbox(title=SGtitle, msg=serialNo + error1)
-       if response:
-           quit()
+       quit()
        return 0
     
     for char in serialNo:
         if char not in hexDigits:
             error2 = " contains non-hex characters. Check and restart with correct serials."
             response = ccbox(title=SGtitle, msg=serialNo + error2) 
-            if response:
-                quit()
+            quit()
             return 0
     return serialNo
     

@@ -3,6 +3,7 @@
 
 ## TODO Items
 - Allow it to still program non-errored serial numbers
+- Get cancel to quit the program, or continue to keep going (work out return of ccbox())
 
 ## Steps
 ```
