@@ -20,50 +20,114 @@ Created on Thu Nov  3 15:59:45 2022
         + error check for more than 6 characters
     
 '''
+# https://docs.spyder-ide.org/5/faq.html#using-packages-installer
+# https://stackoverflow.com/questions/10729116/adding-a-module-specifically-pymorph-to-spyder-python-ide
+
 # FIX THE EASYGUI_QT ERROR (NO MODULE FOUND ERROR):
     # Inside the pip list - installed
     # Cant find the imported module. Possibly:
         # wrong path?
+    # Now can't find the demos folder. maybe wasn't imported correctly in the first place
 
 import sys
 import os # for file reading and writing
 import csv
 from serialFunctions import * #works out of the box since it's in the same directory (finding the file is easy)
 
-#Update the below method, it's not great
-sys.path.append('C:\\Users\\61477\\AppData\\Local\\Programs\\Python\\Python311\\Lib\site-packages\\easygui_qt') #add module to path
+from easygui import *
 
-from easygui_qt import *
+# importing easygui module
+from easygui import *
+ 
+# title of our window
+SGtitle = "SG Serial Injector"
+ 
+# message for our window
+msg = "This is how we inject serial numbers at SG"
 
-import easygui_qt
-#from easygui import *  #https://stackoverflow.com/questions/3701646/how-to-add-to-the-pythonpath-in-windows-so-it-finds-my-modules-packages
+#egdemo()
 
-# https://docs.spyder-ide.org/5/faq.html#using-packages-installer
-# https://stackoverflow.com/questions/10729116/adding-a-module-specifically-pymorph-to-spyder-python-ide
-
-launcher.main()
+msgbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting a CSV with the serial numbers from the batch,\n 2. Inserting the serial number one by one into the QPS_gatt_sensor.xml file,\n 3. Repeating 2. for all serial numbers from within the selected CSV batch")
 
 index = 0
 SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
 
-with open("AutoInjectSerials.csv", "r") as serialFile:
+pathOfSerialNums = fileopenbox(title=SGtitle) # set the filetype
+
+'''Read the Serials into an array
+    -  Add check for if not 6 digits, or not hex one of 0123456789ABCDEF use bitwise AND/OR whatever works
+'''
+with open(pathOfSerialNums, "r") as serialFile:
     reader = csv.reader(serialFile)
     for row in reader:
         for column in row:
+            #checkedSerial = hex_error_check(column)
             SerialList[index] = column
             index += 1
-            
+        
+''' Inject the serial numbers into the .xml file
+    - tell the user which serial is being uploaded
+'''
 for serial in SerialList:
     print(serial)
+    msgbox(title=SGtitle, msg=serial + " will be uploaded", ok_button="Program")
     if serial == 0:
         skip = True
     else:
-       write_serial_to_file(serial)
-       
+       write_serial_to_file(serial) 
+       #ccbox()
 
+      
+       
 ''' Next:
-    - add key press to go to next serial
-    - show which serial is being flashed
+    - UI
+        - change to Tkinter
+        - show the list of serial numbers and highligh the current one
+        - have the ability to move back and forth through the serial numbers and show the current selection
+    - Order arduino pro micro for footpedal- jaycar
+   
 '''
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     

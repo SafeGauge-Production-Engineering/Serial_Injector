@@ -37,4 +37,16 @@ def write_serial_to_file(serialNo):
     
     # take the first serial number https://www.analyticsvidhya.com/blog/2021/08/python-tutorial-working-with-csv-file-for-data-science/
     
-    file.close()
+    
+hexDigits = "0123456789ABCDEF"
+
+def hex_error_check(serialNo):
+    print(str(len(serialNo)))
+    if len(serialNo) != 6:
+        print("Not a 6 digit serial")
+        return 0
+    for char in serialNo:
+        if char not in hexDigits:
+            print("Not a hex digit")
+            return 0
+    
