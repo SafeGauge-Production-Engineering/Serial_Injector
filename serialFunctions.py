@@ -5,6 +5,11 @@ Created on Fri Nov  4 12:03:40 2022
 @author: 61477
 """
 
+
+# importing easygui module
+from easygui import *
+SGtitle = "SG Serial Injector"
+
 def write_serial_to_file(serialNo):
 
     lineUntilSerial = "<service uuid=\"477b695e-fb98-4cfc-9c89-539326"
@@ -41,12 +46,66 @@ def write_serial_to_file(serialNo):
 hexDigits = "0123456789ABCDEF"
 
 def hex_error_check(serialNo):
-    print(str(len(serialNo)))
+#    print(str(len(serialNo)))
     if len(serialNo) != 6:
-        print("Not a 6 digit serial")
-        return 0
+       error1 = " is not a 6 digit serial. Check and restart with correct serials."
+       response = ccbox(title=SGtitle, msg=serialNo + error1)
+       if response:
+           quit()
+       return 0
+    
     for char in serialNo:
         if char not in hexDigits:
-            print("Not a hex digit")
+            error2 = " contains non-hex characters. Check and restart with correct serials."
+            response = ccbox(title=SGtitle, msg=serialNo + error2) 
+            if response:
+                quit()
             return 0
+    return serialNo
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     

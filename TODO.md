@@ -2,7 +2,7 @@
 # GOAL: To insert serial number from a list into the bluetooth profile
 
 ## TODO Items
-
+- Allow it to still program non-errored serial numbers
 
 ## Steps
 ```

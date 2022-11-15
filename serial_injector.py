@@ -35,9 +35,6 @@ import csv
 from serialFunctions import * #works out of the box since it's in the same directory (finding the file is easy)
 
 from easygui import *
-
-# importing easygui module
-from easygui import *
  
 # title of our window
 SGtitle = "SG Serial Injector"
@@ -61,21 +58,22 @@ with open(pathOfSerialNums, "r") as serialFile:
     reader = csv.reader(serialFile)
     for row in reader:
         for column in row:
-            #checkedSerial = hex_error_check(column)
-            SerialList[index] = column
+           # print(column)
+            checkedSerial = hex_error_check(column)
+            SerialList[index] = checkedSerial
             index += 1
         
 ''' Inject the serial numbers into the .xml file
     - tell the user which serial is being uploaded
 '''
+
 for serial in SerialList:
     print(serial)
-    msgbox(title=SGtitle, msg=serial + " will be uploaded", ok_button="Program")
     if serial == 0:
         skip = True
     else:
+       ccbox(title=SGtitle, msg=serial + " will be uploaded", choices=("Program", "Cancel"))
        write_serial_to_file(serial) 
-       #ccbox()
 
       
        
