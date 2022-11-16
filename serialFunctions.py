@@ -10,8 +10,7 @@ Created on Fri Nov  4 12:03:40 2022
 from easygui import *
 SGtitle = "SG Serial Injector"
 
-def write_serial_to_file(serialNo):
-
+def write_serial_to_file(serialNo, pathOfOutputFile):
     lineUntilSerial = "<service uuid=\"477b695e-fb98-4cfc-9c89-539326"
     lineAfterSerial = "\" advertise=\"true\">\n"
     
@@ -21,7 +20,7 @@ def write_serial_to_file(serialNo):
     
     #easygui.egdemo()
     
-    with open("QPS_gatt_sensor.xml", "r") as file: #In future be able to pick the file path
+    with open(pathOfOutputFile, "r") as file: #In future be able to pick the file path
         contents = file.readlines()
         
     
@@ -42,22 +41,25 @@ def write_serial_to_file(serialNo):
     
     # take the first serial number https://www.analyticsvidhya.com/blog/2021/08/python-tutorial-working-with-csv-file-for-data-science/
     
+    print(serialNo + "Serial written to file")
+    
     
 hexDigits = "0123456789ABCDEF"
 
 def hex_error_check(serialNo):
 #    print(str(len(serialNo)))
+    print("Serial Check")
     if len(serialNo) != 6:
        error1 = " is not a 6 digit serial. Check and restart with correct serials."
        response = ccbox(title=SGtitle, msg=serialNo + error1)
-       quit()
+       #quit()
        return 0
     
     for char in serialNo:
         if char not in hexDigits:
             error2 = " contains non-hex characters. Check and restart with correct serials."
             response = ccbox(title=SGtitle, msg=serialNo + error2) 
-            quit()
+            #quit()
             return 0
     return serialNo
     

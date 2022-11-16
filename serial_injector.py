@@ -49,7 +49,14 @@ msgbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting
 index = 0
 SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
 
-pathOfSerialNums = fileopenbox(title=SGtitle) # set the filetype
+
+pathOfSerialNums = fileopenbox(title=SGtitle, msg="Pick file containing serial numbers to upload", filetypes=["*.csv", "*.xlsx"]) # set the filetype
+
+# pathOfOutputFile = diropenbox(title=SGtitle, msg="Pick the output path for QPS_gatt_sensor.XML", default="os.getcwd()")
+
+pathOfOutputFile = fileopenbox(title=SGtitle, msg="Choose the QPS_gatt_sensor.xml to be overwritten with new serial numbers", filetypes=["*.xml"])
+
+print(pathOfOutputFile)
 
 '''Read the Serials into an array
     -  Add check for if not 6 digits, or not hex one of 0123456789ABCDEF use bitwise AND/OR whatever works
@@ -58,7 +65,6 @@ with open(pathOfSerialNums, "r") as serialFile:
     reader = csv.reader(serialFile)
     for row in reader:
         for column in row:
-           # print(column)
             checkedSerial = hex_error_check(column)
             SerialList[index] = checkedSerial
             index += 1
@@ -73,8 +79,7 @@ for serial in SerialList:
         skip = True
     else:
        ccbox(title=SGtitle, msg=serial + " will be uploaded", choices=("Program", "Cancel"))
-       write_serial_to_file(serial) 
-
+       write_serial_to_file(serial, pathOfOutputFile)
       
        
 ''' Next:
