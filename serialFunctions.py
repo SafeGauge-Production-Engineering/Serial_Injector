@@ -41,7 +41,7 @@ def write_serial_to_file(serialNo, pathOfOutputFile):
     
     # take the first serial number https://www.analyticsvidhya.com/blog/2021/08/python-tutorial-working-with-csv-file-for-data-science/
     
-    print(serialNo + "Serial written to file")
+    print(serialNo + " Serial written to file")
     
     
 hexDigits = "0123456789ABCDEF"

@@ -74,7 +74,7 @@ with open(pathOfSerialNums, "r") as serialFile:
 '''
 
 for serial in SerialList:
-    print(serial)
+    #print(serial)
     if serial == 0:
         skip = True
     else:
