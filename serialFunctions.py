@@ -20,7 +20,7 @@ def write_serial_to_file(serialNo, pathOfOutputFile):
     
     #easygui.egdemo()
     
-    with open(pathOfOutputFile, "r") as file: #In future be able to pick the file path
+    with open(pathOfOutputFile, "r") as file:
         contents = file.readlines()
         
     
@@ -35,7 +35,7 @@ def write_serial_to_file(serialNo, pathOfOutputFile):
     # print(contents[17])
     # contents.insert(indexLine, value)
     
-    with open("QPS_gatt_sensor.xml", "w") as file:
+    with open(pathOfOutputFile, "w") as file:
         contents = "".join(contents)
         file.writelines(contents)
     
