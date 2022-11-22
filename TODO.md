@@ -4,6 +4,7 @@
 ## TODO Items
 - Allow it to still program non-errored serial numbers
 - Get cancel to quit the program, or continue to keep going (work out return of ccbox())
+- Change location of gatt_sensor.xml to be wherever their Github file is (search for it locally?)
 
 ## Steps
 ```

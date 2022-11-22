@@ -46,8 +46,10 @@ msg = "This is how we inject serial numbers at SG"
 
 msgbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting a CSV with the serial numbers from the batch,\n 2. Inserting the serial number one by one into the QPS_gatt_sensor.xml file,\n 3. Repeating 2. for all serial numbers from within the selected CSV batch")
 
+# INIT VARIABLES:
 index = 0
 SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
+totalCount = 0
 
 
 pathOfSerialNums = fileopenbox(title=SGtitle, msg="Pick file containing serial numbers to upload", filetypes=["*.csv", "*.xlsx"]) # set the filetype
@@ -68,17 +70,22 @@ with open(pathOfSerialNums, "r") as serialFile:
             checkedSerial = hex_error_check(column)
             SerialList[index] = checkedSerial
             index += 1
+            totalCount +=1
         
 ''' Inject the serial numbers into the .xml file
     - tell the user which serial is being uploaded
 '''
+count = 0
+print(totalCount)
 
 for serial in SerialList:
+    count += 1
+    progStr = "PROGRAMMING "+ str(count) + " OF " + str(totalCount)+ ". \n\n\n"
     #print(serial)
     if serial == 0:
         skip = True
     else:
-       ccbox(title=SGtitle, msg=serial + " will be uploaded", choices=("Program", "Cancel"))
+       ccbox(title=SGtitle, msg= progStr + serial + " will be uploaded", choices=("Program", "Cancel"))
        write_serial_to_file(serial, pathOfOutputFile)
       
        
