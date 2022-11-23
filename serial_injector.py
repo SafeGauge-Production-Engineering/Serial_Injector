@@ -79,14 +79,21 @@ count = 0
 print(totalCount)
 
 for serial in SerialList:
+    if count == 0:
+        prevSerialStr = "Nothing programmed yet"
+        
     count += 1
+    prevStr = "Previous Serial: " + prevSerialStr + "\n\n\n\n"
     progStr = "PROGRAMMING "+ str(count) + " OF " + str(totalCount)+ ". \n\n\n"
-    #print(serial)
+    print(serial)
+    
     if serial == 0:
         skip = True
     else:
-       ccbox(title=SGtitle, msg= progStr + serial + " will be uploaded", choices=("Program", "Cancel"))
+       ccbox(title=SGtitle, msg= prevStr + progStr + serial + " will be uploaded", choices=("Program", "Cancel"))
        write_serial_to_file(serial, pathOfOutputFile)
+    print("now prev serial: " + serial)
+    prevSerialStr = serial
       
        
 ''' Next:
