@@ -52,6 +52,8 @@ SerialList = [0] * 100 ## change this to the number inserted. Should not be hard
 totalCount = 0
 
 
+#indexbox(title=SGtitle, msg=" will be uploaded", choices=(">> PROGRAM <<", "Cancel", "Go Back", "Skip"))
+
 pathOfSerialNums = fileopenbox(title=SGtitle, msg="Pick file containing serial numbers to upload", filetypes=["*.csv", "*.xlsx"]) # set the filetype
 
 # pathOfOutputFile = diropenbox(title=SGtitle, msg="Pick the output path for QPS_gatt_sensor.XML", default="os.getcwd()")
@@ -90,6 +92,21 @@ for serial in SerialList:
     if serial == 0:
         skip = True
     else:
+       #buttonChoice = indexbox(title=SGtitle, msg=" will be uploaded", choices=(">> PROGRAM <<", "Cancel")) # "Go Back", "Skip"))
+       #print(" buttonChoice" + buttonChoice)
+       
+     #  if buttonChoice == 0: # Program pressed
+           #return True;
+      # elif buttonChoice == 1: # Cancel pressed
+          # return False;
+     #  elif buttonChoice == 2: # Go Back pressed
+      #     test = 0
+      # elif buttonChoice == 3: # Skip pressed
+     #      test = 0
+           
+    #   else:
+       #    print("Choice outside all button indexes")
+           
        ccbox(title=SGtitle, msg= prevStr + progStr + serial + " will be uploaded", choices=("Program", "Cancel"))
        write_serial_to_file(serial, pathOfOutputFile)
     print("now prev serial: " + serial)
