@@ -48,7 +48,6 @@ hexDigits = "0123456789ABCDEF"
 
 def hex_error_check(serialNo):
 #    print(str(len(serialNo)))
-    print("Serial Check")
     if len(serialNo) != 6:
        error1 = " is not a 6 digit serial. Check and restart with correct serials."
        response = ccbox(title=SGtitle, msg=serialNo + error1)
