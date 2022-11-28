@@ -15,7 +15,7 @@
       </characteristic>
     </service>
 
-<service uuid="477b695e-fb98-4cfc-9c89-539326B0BAFE" advertise="true">
+<service uuid="477b695e-fb98-4cfc-9c89-539326CABB0D" advertise="true">
         <description>Cable replacement service</description>
         *
         <characteristic uuid="8de9b8c2-0fff-4009-b2f7-da9748730c57" id="xgatt_data">

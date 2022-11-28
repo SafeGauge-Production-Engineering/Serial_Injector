@@ -61,6 +61,50 @@ def hex_error_check(serialNo):
             #quit()
             return 0
     return serialNo
+
+# Ideally need to have the for loop in a function that can be recalled when goBack is pressed:
+    
+
+def LoopSerials(SerialList, totalCount, pathOfOutputFile):
+    count = 0
+    for serial in SerialList:
+        if count == 0:
+            prevSerialStr = "Nothing programmed yet"
+            
+        count += 1
+        prevStr = "Previous Serial: " + str(prevSerialStr) + "\n\n\n\n"
+        programStr = "PROGRAMMING "+ str(count) + " OF " + str(totalCount)+ ". \n\n\n"
+        #print(serial)
+        
+        if serial == 0:
+            skip = True
+        else:
+            buttonChoice = indexbox(title=SGtitle, msg= prevStr + programStr + serial + " will be uploaded", choices=("Program", "Cancel", "Go Back", "Skip"))      
+               
+            if buttonChoice == 0: # PROGRAM pressed
+                goBackTo = None
+                pass # works. May not need the pass?!
+                write_serial_to_file(serial, pathOfOutputFile)
+            elif buttonChoice == 1: # CANCEL pressed
+                sys.exit()  # works
+            elif buttonChoice == 2: # GO BACK pressed
+                #goBack = True
+                goBackTo = prevSerialStr
+                return goBackTo
+                test = 0   # Not sure if you can go back in a loop?! #decrement serial
+            elif buttonChoice == 3: # SKIP pressed
+                goBackTo = None
+                continue # TEST THIS! Seems to work #increment serial
+            else:
+                goBackTo = None
+                print("Choice is outside all button indexes")
+               
+       # ccbox(title=SGtitle, msg= prevStr + progStr + serial + " will be uploaded", choices=("Program", "Cancel"))
+        #print("now prev serial: " + serial)
+        prevSerialStr = serial 
+            
+            
+    
     
     
     

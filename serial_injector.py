@@ -42,7 +42,8 @@ SGtitle = "SG Serial Injector"
 # message for our window
 msg = "This is how we inject serial numbers at SG"
 
-msgbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting a CSV with the serial numbers from the batch,\n 2. Inserting the serial number one by one into the QPS_gatt_sensor.xml file,\n 3. Repeating 2. for all serial numbers from within the selected CSV batch")
+ccbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting a CSV with the serial numbers from the batch,\n 2. Inserting the serial number one by one into the QPS_gatt_sensor.xml file,\n 3. Repeating 2. for all serial numbers from within the selected CSV batch")
+
 
 # INIT VARIABLES:
 index = 0
@@ -74,45 +75,32 @@ with open(pathOfSerialNums, "r") as serialFile:
 ''' Inject the serial numbers into the .xml file
     - tell the user which serial is being uploaded
 '''
-count = 0
-print(totalCount)
 
-for serial in SerialList:
-    if count == 0:
-        prevSerialStr = "Nothing programmed yet"
+''' Currently Go Back goes to the start. Needs more testing and a lil fix too
+'''
+looping = True
+
+while looping:
+    goBackSerial = LoopSerials(SerialList, totalCount, pathOfOutputFile)
+
+    # IF GO BACK IS PRESSED:
+    print(str(goBackSerial) + " returned")
+    if goBackSerial is not None:
+        # Go Back was pressed and there's a valid serial to go back to
         
-    count += 1
-    prevStr = "Previous Serial: " + prevSerialStr + "\n\n\n\n"
-    progStr = "PROGRAMMING "+ str(count) + " OF " + str(totalCount)+ ". \n\n\n"
-    print(serial)
+        serialIndex = SerialList.index(goBackSerial)
+        trunkedSerialList = SerialList[serialIndex : len(SerialList)] # truncate list to run from the serial to go back to
+        print(trunkedSerialList)
+        LoopSerials(trunkedSerialList, totalCount, pathOfOutputFile)
+    else:
+        looping = False
+        break
+
     
-    if serial == 0:
-        skip = True
-    else:
-       buttonChoice = indexbox(title=SGtitle, msg= prevStr + progStr + serial + " will be uploaded", choices=("Program", "Cancel", "Go Back", "Skip"))      
-       
-    if buttonChoice == 0: # PROGRAM pressed
-        pass # works
-        write_serial_to_file(serial, pathOfOutputFile)
-    elif buttonChoice == 1: # CANCEL pressed
-        sys.exit()  # works
-    elif buttonChoice == 2: # GO BACK pressed
-        test = 2
-        #Not sure if you can go back in a look?! #decrement serial
-    elif buttonChoice == 3: # SKIP pressed
-        test = 3
-        continue # TEST THIS! Seems to work #increment serial
-    else:
-        print("Choice outside all button indexes")
-           
-   # ccbox(title=SGtitle, msg= prevStr + progStr + serial + " will be uploaded", choices=("Program", "Cancel"))
-    print("now prev serial: " + serial)
-    prevSerialStr = serial
-      
-       
+
 ''' Next:
     - UI
-        - change to Tkinter
+        - change to Tkinter? Only if we need to upgrade functionality beyond what easygui can do
         - show the list of serial numbers and highligh the current one
         - have the ability to move back and forth through the serial numbers and show the current selection
     - Order arduino pro micro for footpedal- jaycar
