@@ -38,6 +38,8 @@ from easygui import *
  
 # title of our window
 SGtitle = "SG Serial Injector"
+
+# egdemo()
  
 # message for our window
 msg = "This is how we inject serial numbers at SG"
@@ -49,6 +51,7 @@ ccbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting 
 index = 0
 SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
 totalCount = 0
+serialText = ""
 
 #indexbox(title=SGtitle, msg=" will be uploaded", choices=(">> PROGRAM <<", "Cancel", "Go Back", "Skip"))
 
@@ -67,11 +70,13 @@ with open(pathOfSerialNums, "r") as serialFile:
     reader = csv.reader(serialFile)
     for row in reader:
         for column in row:
+            serialText += str(index+1)+".  " + column + "\n\n"
             checkedSerial = hex_error_check(column)
             SerialList[index] = checkedSerial
             index += 1
             totalCount +=1
         
+
 ''' Inject the serial numbers into the .xml file
     - tell the user which serial is being uploaded
 '''
@@ -95,7 +100,8 @@ while looping:
     else:
         looping = False
         break
-
+    
+textbox(title = SGtitle, msg = "List of programmed Serials:", text = serialText)
     
 
 ''' Next:
