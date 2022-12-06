@@ -6,7 +6,7 @@
 
       <characteristic uuid="2a00">
         <properties read="true" const="true" />
-        <value>SG Sensor</value>
+        <value>SG PT600 Sensor</value>
       </characteristic>
 
       <characteristic uuid="2a01">

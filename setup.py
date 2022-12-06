@@ -19,3 +19,6 @@ PyInstaller.__main__.run([
     '--icon=pouring-breakfast-cereal-B9YDP3.ico'
    # '--windowed' #for building a mac app
 ])
+
+# add commit info so you can view what the recent addition was
+    # Is there a message field that could be added?

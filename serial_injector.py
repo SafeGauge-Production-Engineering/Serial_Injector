@@ -52,6 +52,16 @@ index = 0
 SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
 totalCount = 0
 serialText = ""
+productList = ["PT25", "PT300", "PT600", "PT-Fixed", "DI-10", "Tachometer", "USA"]
+PRESELECTPT600 = 2
+
+nameChoice = choicebox(title=SGtitle, msg="Which product are you programming?", choices=productList, preselect=PRESELECTPT600)
+
+if(nameChoice is not None):
+    productName = "SG " + nameChoice + " Sensor"
+else:
+    ccbox(title=SGtitle, msg="Not a valid product")
+
 
 #indexbox(title=SGtitle, msg=" will be uploaded", choices=(">> PROGRAM <<", "Cancel", "Go Back", "Skip"))
 
@@ -86,7 +96,7 @@ with open(pathOfSerialNums, "r") as serialFile:
 looping = True
 
 while looping:
-    goBackSerial = LoopSerials(SerialList, totalCount, pathOfOutputFile)
+    goBackSerial = LoopSerials(productName, SerialList, totalCount, pathOfOutputFile)
 
     # IF GO BACK IS PRESSED:
     print(str(goBackSerial) + " returned")
@@ -96,7 +106,7 @@ while looping:
         serialIndex = SerialList.index(goBackSerial)
         trunkedSerialList = SerialList[serialIndex : len(SerialList)] # truncate list to run from the serial to go back to
         print(trunkedSerialList)
-        LoopSerials(trunkedSerialList, totalCount, pathOfOutputFile)
+        LoopSerials(productName, trunkedSerialList, totalCount, pathOfOutputFile)
     else:
         looping = False
         break

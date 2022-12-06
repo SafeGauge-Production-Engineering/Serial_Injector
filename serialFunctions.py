@@ -10,7 +10,9 @@ Created on Fri Nov  4 12:03:40 2022
 from easygui import *
 SGtitle = "SG Serial Injector"
 
-def write_serial_to_file(serialNo, pathOfOutputFile):
+def write_serial_to_file(productName, serialNo, pathOfOutputFile):
+    lineUntilName = "        <value>"
+    lineAfterName = "</value>\n"
     lineUntilSerial = "<service uuid=\"477b695e-fb98-4cfc-9c89-539326"
     lineAfterSerial = "\" advertise=\"true\">\n"
     
@@ -26,11 +28,17 @@ def write_serial_to_file(serialNo, pathOfOutputFile):
     
     # contents[17] = "<service uuid=\"477b695e-fb98-4cfc-9c89-539326BEEEEF\" advertise=\"true\">\n"
     
-    joinTheseStrings = [lineUntilSerial, serialNo, lineAfterSerial]
+    joinNameLine = [lineUntilName, productName, lineAfterName]
+    newNameLine = ''.join(joinNameLine)
     
-    newSerialLine = ''.join(joinTheseStrings)
+    joinSerialLine = [lineUntilSerial, serialNo, lineAfterSerial]
+    newSerialLine = ''.join(joinSerialLine)
+        
+    contents[8] = newNameLine
     contents[17] = newSerialLine
-    #print(newSerialLine)
+    
+    print(newNameLine)
+    print(newSerialLine)
     
     # print(contents[17])
     # contents.insert(indexLine, value)
@@ -65,7 +73,7 @@ def hex_error_check(serialNo):
 # Ideally need to have the for loop in a function that can be recalled when goBack is pressed:
     
 
-def LoopSerials(SerialList, totalCount, pathOfOutputFile):
+def LoopSerials(productName, SerialList, totalCount, pathOfOutputFile):
     count = 0
     for serial in SerialList:
         if count == 0:
@@ -84,7 +92,7 @@ def LoopSerials(SerialList, totalCount, pathOfOutputFile):
             if buttonChoice == 0: # PROGRAM pressed
                 goBackTo = None
                 pass # works. May not need the pass?!
-                write_serial_to_file(serial, pathOfOutputFile)
+                write_serial_to_file(productName, serial, pathOfOutputFile)
             elif buttonChoice == 1: # CANCEL pressed
                 sys.exit()  # works
             elif buttonChoice == 2: # GO BACK pressed
