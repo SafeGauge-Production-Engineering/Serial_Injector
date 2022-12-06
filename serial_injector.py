@@ -61,6 +61,7 @@ if(nameChoice is not None):
     productName = "SG " + nameChoice + " Sensor"
 else:
     ccbox(title=SGtitle, msg="Not a valid product")
+    sysa.exit()
 
 
 #indexbox(title=SGtitle, msg=" will be uploaded", choices=(">> PROGRAM <<", "Cancel", "Go Back", "Skip"))
@@ -111,7 +112,7 @@ while looping:
         looping = False
         break
     
-textbox(title = SGtitle, msg = "List of programmed Serials:", text = serialText)
+textbox(title = SGtitle, msg = "List of programmed " + productName +" Serials:", text = serialText)
     
 
 ''' Next:

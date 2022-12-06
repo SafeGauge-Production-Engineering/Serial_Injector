@@ -80,7 +80,7 @@ def LoopSerials(productName, SerialList, totalCount, pathOfOutputFile):
             prevSerialStr = "Nothing programmed yet"
             
         count += 1
-        prevStr = "Previous Serial: " + str(prevSerialStr) + "\n\n\n\n"
+        prevStr = productName + " Previous Serial: " + str(prevSerialStr) + "\n\n\n\n"
         programStr = "PROGRAMMING "+ str(count) + " OF " + str(totalCount)+ ". \n\n\n"
         #print(serial)
         
