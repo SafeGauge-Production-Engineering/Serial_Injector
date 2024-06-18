@@ -87,7 +87,7 @@ def LoopSerials(productName, SerialList, totalCount, pathOfOutputFile):
         if serial == 0:
             skip = True
         else:
-            buttonChoice = indexbox(title=SGtitle, msg= prevStr + programStr + serial + " will be uploaded", choices=("Program", "Cancel", "Go Back", "Skip"))      
+            buttonChoice = indexbox(title=SGtitle, msg= prevStr + programStr + serial + " will be uploaded", choices=("Program", "Cancel", "Go Back", "Skip","Show List"))      
                
             if buttonChoice == 0: # PROGRAM pressed
                 goBackTo = None
@@ -103,6 +103,8 @@ def LoopSerials(productName, SerialList, totalCount, pathOfOutputFile):
             elif buttonChoice == 3: # SKIP pressed
                 goBackTo = None
                 continue # TEST THIS! Seems to work #increment serial
+            elif buttonChoice == 4: # Quit pressed
+                sys.exit()
             else:
                 goBackTo = None
                 print("Choice is outside all button indexes")

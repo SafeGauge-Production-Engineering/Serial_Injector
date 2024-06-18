@@ -37,40 +37,62 @@ from serialFunctions import * #works out of the box since it's in the same direc
 from easygui import *
  
 # title of our window
-SGtitle = "SG Serial Injector"
+SGtitle = "SG Serial Injector v2.0"
 
 # egdemo()
  
 # message for our window
 msg = "This is how we inject serial numbers at SG"
 
-ccbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting a CSV with the serial numbers from the batch,\n\n 2. Inserting the serial number one by one into the QPS_gatt_sensor.xml file,\n\n 3. Repeating 2. for all serial numbers from within the selected CSV batch")
-
-
-# INIT VARIABLES:
-index = 0
-SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
-totalCount = 0
-serialText = ""
-productList = ["PT25", 
-               "PT300", 
-               "PT600", 
-               "PT-Fixed", 
-               "DI-10",
-               "TM025", 
-               "USA"]
-PRESELECTPT600 = 2
-
-nameChoice = choicebox(title=SGtitle, msg="Which product are you programming?", choices=productList, preselect=PRESELECTPT600)
-
-if(nameChoice is not None):
-    productName = "SG " + nameChoice + " Sensor"
+proceed= ccbox(title=SGtitle, msg="        SG serial injector works by:\n\n 1. Selecting a CSV with the serial numbers from the batch,\n\n 2. Inserting the serial number one by one into the QPS_gatt_sensor.xml file,\n\n 3. Repeating 2. for all serial numbers from within the selected CSV batch")
+    
+               
+if not proceed: # cancel is pressed
+                sys.exit()
 else:
-    ccbox(title=SGtitle, msg="Not a valid product")
-    sys.exit()
+        # INIT VARIABLES:
+        index = 0
+        SerialList = [0] * 100 ## change this to the number inserted. Should not be hardcoded
+        totalCount = 0
+        serialText = ""
+        companyList = ["Komatsu", "CAT", "SafeGauge", "Liebherr"]
+        productList = ["PT25", "PT300", "PT600", "PT5", "PT100", "PT-Fixed", "DI-10",  "TM010", "USA", "PR-50", "LD-30"]
+        batteryList = ["Lithium", "NiMH"]
+        PRESELECTPT600 = 2
+        PRESELECTBAT = 1        
+        #SELECT THE BRAND CHOICE
+        brandChoice = choicebox(title=SGtitle, msg="Which product OEM is this product for?", choices=companyList, preselect=PRESELECTPT600)  
+        #EXIT IF CANCEL IS PRESSED      
+        if brandChoice is None: # cancel is pressed
+            sys.exit()
+        else: #set the OEM
+            if(brandChoice == "Komatsu"):
+                brandChoice="-KM-"
+            else:
+                brandChoice="-"
+        nameChoice = choicebox(title=SGtitle, msg="Which product are you programming?", choices=productList, preselect=PRESELECTPT600)     
+               
+        if nameChoice is None: # cancel is pressed
+                sys.exit()
+        else:
+            if(nameChoice == "DI-10"):
+                batteryChoice = choicebox(title=SGtitle, msg="Which battery is in your product", choices=batteryList, preselect=PRESELECTBAT)
+            else:
+                batteryChoice =""
+        if(batteryChoice == "Lithium"):
+            batteryLabel="-SL"
+        else:
+            if(batteryChoice == "NiMH"):
+                batteryLabel="-SN"
+            else: batteryLabel=""
+        if(nameChoice is not None):
+            productName = "SG" + brandChoice + nameChoice +"-OTA" + batteryLabel+ " Sensor"
+        else:
+            ccbox(title=SGtitle, msg="Not a valid product")
+            sys.exit()
 
 
-#indexbox(title=SGtitle, msg=" will be uploaded", choices=(">> PROGRAM <<", "Cancel", "Go Back", "Skip"))
+#indexbox(title=SGtitle, msg=" will be uploaded", choices=(">> PROGRAM <<", "Cancel", "Go Back", "Skip", "Quit"))
 
 pathOfSerialNums = fileopenbox(title=SGtitle, msg="Pick file containing serial numbers to upload", filetypes=["*.csv", "*.xlsx"]) # set the filetype
 
